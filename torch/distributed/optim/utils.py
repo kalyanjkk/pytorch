@@ -24,6 +24,15 @@ functional_optim_map = {
     optim.Adamax: _FunctionalAdamax,
 }
 
+#To add a new functiona optimizer
+#import the new functional optimizer
+#from xyz import new_optimizer
+#from torch.distributed.optim.utils import register_functional_optim
+#register_functional_optim(new_optimizer,new_optimizer)
+def register_functional_optim(key,optim):
+    if key not in functional_optim_map:
+        functional_optim_map[key] = optim
+
 def as_functional_optim(optim_cls: Type, *args, **kwargs):
     try:
         functional_cls = functional_optim_map[optim_cls]
